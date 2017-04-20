@@ -1,13 +1,17 @@
-﻿var time = 30;
-var solution = "EL DÍA DE LA BESTIA";
-var imgsrc = "https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg";
+﻿var time = atob(getParameterByName("time"));// 30 = MzA=
+var type = atob(getParameterByName("type")); // "la película" = bGEgcGVsw61jdWxh
+var solution = atob(getParameterByName("sol"));//"EL DÍA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
+var img = atob(getParameterByName("img"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
 
 var hidden = "";
 init();
 
 function init() {
+	// Setea título
+	document.getElementById("type").innerHTML = type;
+	
 	// Setea imagen
-	document.getElementById("clue").src = imgsrc;
+	document.getElementById("image").src = img;
 	
 	// Setea caracteres
 	for (var i=0; i<solution.length; i++) {
