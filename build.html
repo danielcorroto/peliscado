@@ -1,0 +1,45 @@
+<html>
+
+<head>
+	<script src="js/vendor/jquery-3.2.1.min.js"></script>
+	<script>
+		function getParameterByName(name) {
+			return $("#"+name).val();
+		}
+		
+		$(document).ready(function(){
+
+			$("#build").click(function() {
+				var time = btoa(getParameterByName("time"));// 30 = MzA=
+				var type = btoa(getParameterByName("type")); // "la película" = bGEgcGVsw61jdWxh
+				var solution = btoa(getParameterByName("solution"));//"EL DÍA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
+				var imgsrc = btoa(getParameterByName("imgsrc"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
+				var url = "https://danielcorroto.github.io/peliscado/?time="+time+"&type="+type+"&sol="+solution+"&img="+imgsrc;
+				
+				var qr = "http://es.qr-code-generator.com/phpqrcode/getCode.php?cht=qr&chl="+encodeURIComponent(url)+"&chs=180x180&choe=UTF-8&chld=L|0";
+				$("#url").text(url);
+				$("#qr").attr("src", qr);
+			});
+		
+		});
+	</script>
+</head>
+<body>
+	Tiempo: <input type="text" id="time" placeholder="30" autofocus></input><br>
+	Tipo: <input type="text" id="type" list="types">
+	<datalist id="types">
+		<option value="la película">
+		<option value="la serie">
+		<option value="el actor">
+		<option value="la actriz">
+	</datalist>
+	</input><br>
+	Solución: <input type="text" id="solution" placeholder="EL DÍA DE LA BESTIA"></input><br>
+	Imagen: <input type="text" id="imgsrc" placeholder="https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg"></input><br>
+	<button id="build">Construir</button><br>
+	<textarea id="url" rows="10" cols="80"></textarea><br>
+	
+	<img style="width:268!important" src="" alt="" class="prevImg" id="qr">
+	
+</body>
+</html>
