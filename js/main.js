@@ -7,7 +7,12 @@ var hidden = "";
 init();
 
 function init() {
-	window.scrollTo(0,1);
+	window.addEventListener("load",function() {
+		setTimeout(function(){
+			// This hides the address bar:
+			window.scrollTo(0, 100);
+		}, 0);
+	});
 	
 	// Setea título
 	document.getElementById("type").innerHTML = type;
