@@ -7,6 +7,8 @@ var hidden = "";
 init();
 
 function init() {
+	window.scrollTo(0,1);
+	
 	// Setea título
 	document.getElementById("type").innerHTML = type;
 	
