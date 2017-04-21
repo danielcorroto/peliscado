@@ -65,9 +65,17 @@ function setLetter() {
 }
 
 function timeout() {
+	if (letterCount == 0) {
+		initPixelate();
+		pixelate(5);
+	} else {
+		pixelate(100 / (letters - letterCount));
+	}
+	
 	var next = timeoutFormula(1+letterCount);
 	var actual = timeoutFormula(letterCount);
 	setTimeout(setLetter, (next-actual)*1000);
+	
 }
 
 function timeoutFormula(t) {
@@ -84,3 +92,48 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+var canvas;
+var ctx;
+var img;
+function initPixelate() {
+	canvas = document.getElementById("image");
+	ctx = canvas.getContext('2d'),
+	img = new Image(),
+	play = false;
+
+	/// turn off image smoothing - this will give the pixelated effect
+	ctx.mozImageSmoothingEnabled = true;
+	ctx.webkitImageSmoothingEnabled = true;
+	ctx.imageSmoothingEnabled = true;
+
+	/// wait until image is actually available
+	img.onload = pixelate;
+
+	/// some image, we are not struck with CORS restrictions as we
+	/// do not use pixel buffer to pixelate, so any image will do
+	img.src = 'https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg';
+	
+	xsol = document.getElementById("solution");
+	imgw = xsol.clientWidth;
+	scale = imgw / img.width;
+	canvas.width = img.width * scale;
+	canvas.height = img.height * scale;
+}
+
+/// MAIN function
+function pixelate(size) {
+
+	/// if in play mode use that value, else use slider value
+	//var size = (play ? v : blocks.value) * 0.01,
+
+		/// cache scaled width and height
+		w = canvas.width * size / 100;
+		h = canvas.height * size / 100;
+
+	/// draw original image to the scaled size
+	ctx.drawImage(img, 0, 0, w, h);
+
+	/// then draw that scaled image thumb back to fill canvas
+	/// As smoothing is off the result will be pixelated
+	ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
+}
