@@ -2,6 +2,8 @@
 var type = atob(getParameterByName("type")); // "la película" = bGEgcGVsw61jdWxh
 var solution = atob(getParameterByName("sol"));//"EL DÍA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
 var img = atob(getParameterByName("img"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
+var letters = 0;
+var letterCount = 0;
 
 var hidden = "";
 init();
@@ -26,12 +28,17 @@ function init() {
 			hidden += ' ';
 		} else {
 			hidden += '_';
+			letters++;
 		}
 	}
 	document.getElementById("solution").innerHTML = hidden;
+	
+	$.ready(timeout())
 }
 
 function setLetter() {
+	letterCount++;
+	
 	// Selecciona pista
 	var opts = (hidden.match(/_/g) || []).length;
 	var optToChange = Math.floor(Math.random() * opts );
@@ -58,8 +65,13 @@ function setLetter() {
 }
 
 function timeout() {
-	var len = solution.length - (hidden.match(/ /g) || []).length;
-	setTimeout(setLetter, time * 1000 / len);
+	var next = timeoutFormula(1+letterCount);
+	var actual = timeoutFormula(letterCount);
+	setTimeout(setLetter, (next-actual)*1000);
+}
+
+function timeoutFormula(t) {
+	return time * Math.pow(t/letters,.5);
 }
 
 function getParameterByName(name, url) {
@@ -72,4 +84,3 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-$.ready(timeout())
