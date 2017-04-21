@@ -1,7 +1,7 @@
 ﻿var time = atob(getParameterByName("time"));// 30 = MzA=
 var type = atob(getParameterByName("type")); // "la película" = bGEgcGVsw61jdWxh
 var solution = atob(getParameterByName("sol"));//"EL DÍA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
-var img = atob(getParameterByName("img"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
+var imgsrc = atob(getParameterByName("img"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
 var letters = 0;
 var letterCount = 0;
 
@@ -20,7 +20,7 @@ function init() {
 	document.getElementById("type").innerHTML = type;
 	
 	// Setea imagen
-	document.getElementById("image").src = img;
+	document.getElementById("image").src = imgsrc;
 	
 	// Setea caracteres
 	for (var i=0; i<solution.length; i++) {
@@ -111,7 +111,7 @@ function initPixelate() {
 
 	/// some image, we are not struck with CORS restrictions as we
 	/// do not use pixel buffer to pixelate, so any image will do
-	img.src = 'https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg';
+	img.src = atob(getParameterByName("img"));
 	
 	xsol = document.getElementById("solution");
 	imgw = xsol.clientWidth;
