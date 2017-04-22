@@ -1,6 +1,7 @@
-<html>
+Ôªø<html>
 
 <head>
+	<meta charset="utf-8">
 	<script src="js/vendor/jquery-3.2.1.min.js"></script>
 	<script>
 		function getParameterByName(name) {
@@ -11,8 +12,8 @@
 
 			$("#build").click(function() {
 				var time = btoa(getParameterByName("time"));// 30 = MzA=
-				var type = btoa(getParameterByName("type")); // "la pelÌcula" = bGEgcGVsw61jdWxh
-				var solution = btoa(getParameterByName("solution"));//"EL DÕA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
+				var type = btoa(getParameterByName("type")); // "la pel√≠cula" = bGEgcGVsw61jdWxh
+				var solution = btoa(getParameterByName("solution"));//"EL D√çA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
 				var imgsrc = btoa(getParameterByName("imgsrc"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
 				var url = "https://danielcorroto.github.io/peliscado/?time="+time+"&type="+type+"&sol="+solution+"&img="+imgsrc;
 				
@@ -28,13 +29,13 @@
 	Tiempo: <input type="text" id="time" placeholder="30" autofocus></input><br>
 	Tipo: <input type="text" id="type" list="types">
 	<datalist id="types">
-		<option value="la pelÌcula">
+		<option value="la pel√≠cula">
 		<option value="la serie">
 		<option value="el actor">
 		<option value="la actriz">
 	</datalist>
 	</input><br>
-	SoluciÛn: <input type="text" id="solution" placeholder="EL DÕA DE LA BESTIA"></input><br>
+	Soluci√≥n: <input type="text" id="solution" placeholder="EL D√çA DE LA BESTIA"></input><br>
 	Imagen: <input type="text" id="imgsrc" placeholder="https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg"></input><br>
 	<button id="build">Construir</button><br>
 	<textarea id="url" rows="10" cols="80"></textarea><br>

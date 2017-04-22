@@ -1,7 +1,11 @@
-﻿var time = atob(getParameterByName("time"));// 30 = MzA=
-var type = atob(getParameterByName("type")); // "la película" = bGEgcGVsw61jdWxh
-var solution = atob(getParameterByName("sol"));//"EL DÍA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
-var imgsrc = atob(getParameterByName("img"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
+﻿var time, type, solution, imgsrc;
+
+function loadInfo() {
+	time = atob(getParameterByName("time"));// 30 = MzA=
+	type = atob(getParameterByName("type")); // "la película" = bGEgcGVsw61jdWxh
+	solution = atob(getParameterByName("sol"));//"EL DÍA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
+	imgsrc = atob(getParameterByName("img"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
+}
 var letters = 0;
 var letterCount = 0;
 
@@ -9,11 +13,14 @@ var hidden = "";
 init();
 
 function init() {
+	
+	loadInfo();
 	window.addEventListener("load",function() {
 		setTimeout(function(){
 			// This hides the address bar:
 			window.scrollTo(0, 100);
-		}, 0);
+			initPixelate();
+		}, 10);
 	});
 	
 	// Setea título
@@ -32,8 +39,6 @@ function init() {
 		}
 	}
 	document.getElementById("solution").innerHTML = hidden;
-	
-	$.ready(timeout())
 }
 
 function setLetter() {
@@ -66,8 +71,7 @@ function setLetter() {
 
 function timeout() {
 	if (letterCount == 0) {
-		initPixelate();
-		pixelate(5);
+		//initPixelate();
 	} else {
 		pixelate(100 / (letters - letterCount));
 	}
@@ -111,21 +115,23 @@ function initPixelate() {
 
 	/// some image, we are not struck with CORS restrictions as we
 	/// do not use pixel buffer to pixelate, so any image will do
-	img.src = atob(getParameterByName("img"));
-	
-	xsol = document.getElementById("solution");
-	imgw = xsol.clientWidth;
-	scale = imgw / img.width;
-	canvas.width = img.width * scale;
-	canvas.height = img.height * scale;
+	img.src = imgsrc;
 }
 
 /// MAIN function
 function pixelate(size) {
 
 	/// if in play mode use that value, else use slider value
-	//var size = (play ? v : blocks.value) * 0.01,
-
+	if (size.target) {
+		size = 5;
+		xsol = document.getElementById("solution");
+		imgw = xsol.clientWidth;
+		scale = imgw / img.width;
+		canvas.width = img.width * scale;
+		canvas.height = img.height * scale;
+		timeout();
+	}
+	
 		/// cache scaled width and height
 		w = canvas.width * size / 100;
 		h = canvas.height * size / 100;
