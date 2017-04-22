@@ -6,8 +6,10 @@ function loadInfo() {
 	solution = atob(getParameterByName("sol"));//"EL DÍA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
 	imgsrc = atob(getParameterByName("img"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
 }
-var letters = 0;
+var letterTotal = 0;
 var letterCount = 0;
+var imageTotal = 50;
+var imageCount = 0;
 
 var hidden = "";
 init();
@@ -35,11 +37,15 @@ function init() {
 			hidden += ' ';
 		} else {
 			hidden += '_';
-			letters++;
+			letterTotal++;
 		}
 	}
 	document.getElementById("solution").innerHTML = hidden;
 }
+
+//////////////////////////////
+// TIMEOUT LETRAS
+//////////////////////////////
 
 function setLetter() {
 	letterCount++;
@@ -64,27 +70,72 @@ function setLetter() {
 	document.getElementById("solution").innerHTML = hidden;
 	
 	if (solution != hidden) {
-		timeout();
+		timeoutLetter();
 	}
 
 }
 
-function timeout() {
-	if (letterCount == 0) {
-		//initPixelate();
+function timeoutLetter() {
+	var next = timeoutLetterFormula(1+letterCount);
+	var actual = timeoutLetterFormula(letterCount);
+	setTimeout(setLetter, next-actual);
+}
+
+function timeoutLetterFormula(t) {
+	if (t==0) {
+		return 1;
 	} else {
-		pixelate(100 / (letters - letterCount));
+		return 1000 * time * Math.pow((t-1)/(letterTotal-1),.5);
 	}
-	
-	var next = timeoutFormula(1+letterCount);
-	var actual = timeoutFormula(letterCount);
-	setTimeout(setLetter, (next-actual)*1000);
-	
 }
 
-function timeoutFormula(t) {
-	return time * Math.pow(t/letters,.5);
+//////////////////////////////
+// TIMEOUT IMAGN
+//////////////////////////////
+
+function setImage() {
+	var percentage = 0;
+	if (imageCount != 0) {
+		percentage = getPixelatePercentage();
+		pixelate(percentage);
+	}
+	if (percentage < 100) {
+		imageCount++;
+		timeoutImage();
+	}
 }
+
+function timeoutImage() {
+	var next = timeoutImageFormula(1+imageCount);
+	var actual = timeoutImageFormula(imageCount);
+	setTimeout(setImage, next-actual);
+}
+
+function getPixelatePercentage() {
+	return 100 * getPixelateNumber(imageCount) / getPixelateNumber(imageTotal)
+}
+
+function getPixelateNumber(x) {
+	return (x*x*x+ 50*x*x + 100*x);
+}
+
+function timeoutImageFormula(t) {
+	return 1000 * time * t / imageTotal;
+}
+
+//////////////////////////////
+// TIMEOUT GENERAL
+//////////////////////////////
+
+
+function startTimeouts() {
+	timeoutLetter();
+	timeoutImage();
+}
+
+//////////////////////////////
+// UTILS
+//////////////////////////////
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -95,6 +146,10 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
+
+//////////////////////////////
+// MANEJO DE PIXELADO DE IMAGEN
+//////////////////////////////
 
 var canvas;
 var ctx;
@@ -123,13 +178,13 @@ function pixelate(size) {
 
 	/// if in play mode use that value, else use slider value
 	if (size.target) {
-		size = 5;
+		size = 0.005;
 		xsol = document.getElementById("solution");
 		imgw = xsol.clientWidth;
 		scale = imgw / img.width;
 		canvas.width = img.width * scale;
 		canvas.height = img.height * scale;
-		timeout();
+		startTimeouts();
 	}
 	
 		/// cache scaled width and height
