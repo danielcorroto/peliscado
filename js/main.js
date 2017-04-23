@@ -85,8 +85,24 @@ function timeoutLetterFormula(t) {
 	if (t==0) {
 		return 1;
 	} else {
-		return 1000 * time * Math.pow((t-1)/(letterTotal-1),.5);
+		var start = timeoutLetterBaseFormula(0);
+		var end = timeoutLetterBaseFormula(letterTotal);
+		var mult = time / (end - start);
+		
+		var res = timeoutLetterBaseFormula(t);
+		res -= start;
+		res *= mult;
+		
+		return 1000 * res;
 	}
+}
+
+function timeoutLetterBaseFormula(t) {
+	var res = Math.pow(Math.abs(t - letterTotal / 4), 2 / 5);
+	if (t < letterTotal / 4) {
+		res = -res;
+	}
+	return res;
 }
 
 //////////////////////////////
@@ -116,7 +132,7 @@ function getPixelatePercentage() {
 }
 
 function getPixelateNumber(x) {
-	return (x*x*x+ 50*x*x + 100*x);
+	return (x*x*x*x + 1000*x*x);
 }
 
 function timeoutImageFormula(t) {
