@@ -31,6 +31,7 @@ function init() {
 	
 	// Setea título
 	document.getElementById("type").innerHTML = type;
+	document.title += " " + type;
 	
 	// Setea imagen
 	document.getElementById("image").src = imgsrc;
