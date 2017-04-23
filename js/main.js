@@ -1,11 +1,6 @@
-﻿var time, type, solution, imgsrc;
+﻿var time = 15;
+var type, solution, imgsrc;
 
-function loadInfo() {
-	time = atob(getParameterByName("time"));// 30 = MzA=
-	type = atob(getParameterByName("type")); // "la película" = bGEgcGVsw61jdWxh
-	solution = atob(getParameterByName("sol"));//"EL DÍA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
-	imgsrc = atob(getParameterByName("img"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
-}
 var letterTotal = 0;
 var letterCount = 0;
 var imageTotal = 50;
@@ -14,6 +9,15 @@ var imageCount = 0;
 var hidden = "";
 init();
 
+// Carga la información de tiempo, tipo, solución y src de la imagen a partir de los parámetros GET
+function loadInfo() {
+	time = atob(getParameterByName("time"));// 30 = MzA=
+	type = atob(getParameterByName("type")); // "la película" = bGEgcGVsw61jdWxh
+	solution = atob(getParameterByName("sol"));//"EL DÍA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
+	imgsrc = atob(getParameterByName("img"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
+}
+
+// Setea los valores obtenidos de los parámetros GET
 function init() {
 	
 	loadInfo();
@@ -47,6 +51,7 @@ function init() {
 // TIMEOUT LETRAS
 //////////////////////////////
 
+// Coloca la letra en su posición y vuelve a lanzar el timeout
 function setLetter() {
 	letterCount++;
 	
@@ -75,12 +80,14 @@ function setLetter() {
 
 }
 
+// Setea el timeout de letra
 function timeoutLetter() {
 	var next = timeoutLetterFormula(1+letterCount);
 	var actual = timeoutLetterFormula(letterCount);
 	setTimeout(setLetter, next-actual);
 }
 
+// Devuelve el tiempo del timeout dependiendo de la letra a mostrar
 function timeoutLetterFormula(t) {
 	if (t==0) {
 		return 1;
@@ -97,6 +104,7 @@ function timeoutLetterFormula(t) {
 	}
 }
 
+// Fórmula base del tiempo del timeout de la letra
 function timeoutLetterBaseFormula(t) {
 	var res = Math.pow(Math.abs(t - letterTotal / 4), 2 / 5);
 	if (t < letterTotal / 4) {
@@ -109,6 +117,7 @@ function timeoutLetterBaseFormula(t) {
 // TIMEOUT IMAGN
 //////////////////////////////
 
+// Pixela la imagen y vuelve a lanzar el timeout
 function setImage() {
 	var percentage = 0;
 	if (imageCount != 0) {
@@ -121,20 +130,24 @@ function setImage() {
 	}
 }
 
+// Setea el timeout de imagen
 function timeoutImage() {
 	var next = timeoutImageFormula(1+imageCount);
 	var actual = timeoutImageFormula(imageCount);
 	setTimeout(setImage, next-actual);
 }
 
+// Devuelve el pixelado de la imagen para el momento actual
 function getPixelatePercentage() {
 	return 100 * getPixelateNumber(imageCount) / getPixelateNumber(imageTotal)
 }
 
+// Devuelve el pixelado de la imagen para el momento indicado
 function getPixelateNumber(x) {
 	return (x*x*x*x + 1000*x*x);
 }
 
+// Devuelve el tiempo del timeout para el momento indicado
 function timeoutImageFormula(t) {
 	return 1000 * time * t / imageTotal;
 }
@@ -143,7 +156,7 @@ function timeoutImageFormula(t) {
 // TIMEOUT GENERAL
 //////////////////////////////
 
-
+// Inicia los timeouts
 function startTimeouts() {
 	timeoutLetter();
 	timeoutImage();
@@ -153,6 +166,7 @@ function startTimeouts() {
 // UTILS
 //////////////////////////////
 
+// Obtiene el parámetro GET
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -170,6 +184,8 @@ function getParameterByName(name, url) {
 var canvas;
 var ctx;
 var img;
+
+// Inicia el pixelado del canvas
 function initPixelate() {
 	canvas = document.getElementById("image");
 	ctx = canvas.getContext('2d'),
@@ -189,7 +205,7 @@ function initPixelate() {
 	img.src = imgsrc;
 }
 
-/// MAIN function
+// Pixela la imagen al % indicado
 function pixelate(size) {
 
 	/// if in play mode use that value, else use slider value
