@@ -42,12 +42,8 @@ function init() {
 
 	// Setea caracteres
 	for (var i=0; i<solution.length; i++) {
-		if (solution[i] == ' ') {
-			hidden += ' ';
-		} else {
-			hidden += '_';
-			letterTotal++;
-		}
+		hidden += '_';
+		letterTotal++;
 	}
 	document.getElementById("solution").innerHTML = hidden;
 }
