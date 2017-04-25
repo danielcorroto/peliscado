@@ -1,0 +1,67 @@
+﻿<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Adivina </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+			pre {
+				font-size: 22px;
+				letter-spacing: 3px;
+			}
+			
+			canvas {
+				image-rendering: optimizeSpeed;
+				image-rendering: -moz-crisp-edges;
+				image-rendering: -webkit-optimize-contrast;
+				image-rendering: -o-crisp-edges;
+				image-rendering: crisp-edges;
+				-ms-interpolation-mode: nearest-neighbor;
+			}
+			.jumbotron {
+				padding-top: 5px;
+				padding-bottom: 5px;
+			}
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+		<script>
+		</script>
+    </head>
+    <body>
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Adivina <span id="type"></span></h1>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-xm-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 text-center">
+          <pre id="solution"></pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-xm-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 text-center">
+			<canvas id="image"></canvas>
+        </div>
+      </div>
+    </div>      
+
+        <script src="js/vendor/jquery-3.2.1.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

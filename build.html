@@ -15,7 +15,7 @@
 				var type = btoa(getParameterByName("type")); // "la película" = bGEgcGVsw61jdWxh
 				var solution = btoa(getParameterByName("solution"));//"EL DÍA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
 				var imgsrc = btoa(getParameterByName("imgsrc"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
-				var url = "https://danielcorroto.github.io/peliscado/?time="+time+"&type="+type+"&sol="+solution+"&img="+imgsrc;
+				var url = "https://danielcorroto.github.io/peliscado/pixelate.html?time="+time+"&type="+type+"&sol="+solution+"&img="+imgsrc;
 				
 				var qr = "http://es.qr-code-generator.com/phpqrcode/getCode.php?cht=qr&chl="+encodeURIComponent(url)+"&chs=180x180&choe=UTF-8&chld=L|0";
 				$("#url").text(url);
