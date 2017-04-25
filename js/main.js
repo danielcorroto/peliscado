@@ -244,10 +244,24 @@ function initPixelate() {
 
 	/// wait until image is actually available
 	img.onload = pixelate;
+	img.onerror = pixelateError;
 
 	/// some image, we are not struck with CORS restrictions as we
 	/// do not use pixel buffer to pixelate, so any image will do
 	img.src = imgsrc;
+}
+
+function setCanvasSize() {
+	var xsol = document.getElementById("solution");
+	var imgw = xsol.clientWidth;
+	if (img.width != 0) {
+		var scale = imgw / img.width;
+		canvas.width = img.width * scale;
+		canvas.height = img.height * scale;
+	} else {
+		canvas.width = imgw;
+		canvas.height = imgw * 2 / 3;
+	}
 }
 
 /**
@@ -259,11 +273,7 @@ function pixelate(size) {
 	/// if in play mode use that value, else use slider value
 	if (size.target) {
 		size = 0.005;
-		xsol = document.getElementById("solution");
-		imgw = xsol.clientWidth;
-		scale = imgw / img.width;
-		canvas.width = img.width * scale;
-		canvas.height = img.height * scale;
+		setCanvasSize();
 		startTimeouts();
 	}
 
@@ -277,4 +287,16 @@ function pixelate(size) {
 	/// then draw that scaled image thumb back to fill canvas
 	/// As smoothing is off the result will be pixelated
 	ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
+}
+
+function pixelateError() {
+	setCanvasSize();
+	ctx.font = "30px Serif";
+	ctx.textAlign = "center";
+	ctx.fillStyle = "red";
+	ctx.fillText("ERROR cargando la imagen", canvas.width / 2, 40);
+	ctx.font = "20px Serif";
+	ctx.fillStyle = "black";
+	ctx.fillText("Inténtalo más tarde", canvas.width / 2, 70);
+	ctx.fillText("o elimina la tarjeta", canvas.width / 2, 100);
 }
