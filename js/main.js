@@ -9,7 +9,9 @@ var imageCount = 0;
 var hidden = "";
 init();
 
-// Carga la información de tiempo, tipo, solución y src de la imagen a partir de los parámetros GET
+/**
+ * Carga la información de tiempo, tipo, solución y src de la imagen a partir de los parámetros GET
+ */
 function loadInfo() {
 	time = atob(getParameterByName("time"));// 30 = MzA=
 	type = atob(getParameterByName("type")); // "la película" = bGEgcGVsw61jdWxh
@@ -17,9 +19,11 @@ function loadInfo() {
 	imgsrc = atob(getParameterByName("img"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
 }
 
-// Setea los valores obtenidos de los parámetros GET
+/**
+ * initSetea los valores obtenidos de los parámetros GET
+ */
 function init() {
-	
+
 	loadInfo();
 	window.addEventListener("load",function() {
 		setTimeout(function(){
@@ -28,14 +32,14 @@ function init() {
 			initPixelate();
 		}, 10);
 	});
-	
+
 	// Setea título
 	document.getElementById("type").innerHTML = type;
 	document.title += " " + type;
-	
+
 	// Setea imagen
 	document.getElementById("image").src = imgsrc;
-	
+
 	// Setea caracteres
 	for (var i=0; i<solution.length; i++) {
 		if (solution[i] == ' ') {
@@ -52,43 +56,52 @@ function init() {
 // TIMEOUT LETRAS
 //////////////////////////////
 
-// Coloca la letra en su posición y vuelve a lanzar el timeout
+/**
+ * Coloca la letra en su posición y vuelve a lanzar el timeout
+ */
 function setLetter() {
 	letterCount++;
-	
+
 	// Selecciona pista
 	var opts = (hidden.match(/_/g) || []).length;
 	var optToChange = Math.floor(Math.random() * opts );
-	
+
 	// Reemplaza pista
 	index = -1;
 	for (var i=0; i<hidden.length; i++)  {
 		if (hidden[i] == '_') {
 			index++;
-		
+
 			if (index == optToChange) {
 				hidden = hidden.substr(0, i) + solution[i] + hidden.substr(i + 1);
 			}
 		}
 	}
-	
+
 	// Muestra pista
 	document.getElementById("solution").innerHTML = hidden;
-	
+
 	if (solution != hidden) {
 		timeoutLetter();
 	}
 
 }
 
-// Setea el timeout de letra
+/**
+ * Setea el timeout de letra
+ */
 function timeoutLetter() {
 	var next = timeoutLetterFormula(1+letterCount);
 	var actual = timeoutLetterFormula(letterCount);
 	setTimeout(setLetter, next-actual);
 }
 
-// Devuelve el tiempo del timeout dependiendo de la letra a mostrar
+/**
+ * Devuelve el tiempo del timeout dependiendo de la letra a mostrar
+ *
+ * @param  {number} t Letra actual
+ * @return {number}   Tiempo en milisegundos del timeout
+ */
 function timeoutLetterFormula(t) {
 	if (t==0) {
 		return 1;
@@ -96,16 +109,21 @@ function timeoutLetterFormula(t) {
 		var start = timeoutLetterBaseFormula(0);
 		var end = timeoutLetterBaseFormula(letterTotal);
 		var mult = time / (end - start);
-		
+
 		var res = timeoutLetterBaseFormula(t);
 		res -= start;
 		res *= mult;
-		
+
 		return 1000 * res;
 	}
 }
 
-// Fórmula base del tiempo del timeout de la letra
+/**
+ * Fórmula base del tiempo del timeout de la letra
+ *
+ * @param  {type} t Momento del cálculo del tiempo
+ * @return {type}   Tiempo en milisegundos
+ */
 function timeoutLetterBaseFormula(t) {
 	var res = Math.pow(Math.abs(t - letterTotal / 4), 2 / 5);
 	if (t < letterTotal / 4) {
@@ -118,7 +136,9 @@ function timeoutLetterBaseFormula(t) {
 // TIMEOUT IMAGN
 //////////////////////////////
 
-// Pixela la imagen y vuelve a lanzar el timeout
+/**
+ * Pixela la imagen y vuelve a lanzar el timeout
+ */
 function setImage() {
 	var percentage = 0;
 	if (imageCount != 0) {
@@ -131,24 +151,40 @@ function setImage() {
 	}
 }
 
-// Setea el timeout de imagen
+/**
+ * Setea el timeout de imagen
+ */
 function timeoutImage() {
 	var next = timeoutImageFormula(1+imageCount);
 	var actual = timeoutImageFormula(imageCount);
 	setTimeout(setImage, next-actual);
 }
 
-// Devuelve el pixelado de la imagen para el momento actual
+/**
+ * Devuelve el pixelado de la imagen para el momento actual
+ *
+ * @return {number}  Cantidad de pixelado para el momento actual
+ */
 function getPixelatePercentage() {
 	return 100 * getPixelateNumber(imageCount) / getPixelateNumber(imageTotal)
 }
 
-// Devuelve el pixelado de la imagen para el momento indicado
+/**
+ * Devuelve el pixelado de la imagen para el momento indicado
+ *
+ * @param  {number} x Momento del cálculo del pixelado
+ * @return {number}   Cantidad de pixelado para el momento indicado
+ */
 function getPixelateNumber(x) {
 	return (x*x*x*x + 1000*x*x);
 }
 
-// Devuelve el tiempo del timeout para el momento indicado
+ /**
+  * Devuelve el tiempo del timeout para el momento indicado
+  *
+  * @param  {number} t Frame actual
+  * @return {number}   Tiempo en milisegundos del timeout
+  */
 function timeoutImageFormula(t) {
 	return 1000 * time * t / imageTotal;
 }
@@ -157,7 +193,9 @@ function timeoutImageFormula(t) {
 // TIMEOUT GENERAL
 //////////////////////////////
 
-// Inicia los timeouts
+/**
+ * Inicia los timeouts
+ */
 function startTimeouts() {
 	timeoutLetter();
 	timeoutImage();
@@ -168,6 +206,14 @@ function startTimeouts() {
 //////////////////////////////
 
 // Obtiene el parámetro GET
+
+/**
+ * Obtiene el parámetro GET
+ *
+ * @param  {string} name Nombre del parámetro GET
+ * @param  {string} url  URL completa
+ * @return {string}      valor del parámetro GET
+ */
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -186,7 +232,9 @@ var canvas;
 var ctx;
 var img;
 
-// Inicia el pixelado del canvas
+/**
+ * Inicia el pixelado del canvas
+ */
 function initPixelate() {
 	canvas = document.getElementById("image");
 	ctx = canvas.getContext('2d'),
@@ -206,9 +254,12 @@ function initPixelate() {
 	img.src = imgsrc;
 }
 
-// Pixela la imagen al % indicado
+/**
+ * Pixela la imagen al % indicado
+ *
+ * @param  {number} size Porcentaje de pixelado a aplicar a la imagen
+ */
 function pixelate(size) {
-
 	/// if in play mode use that value, else use slider value
 	if (size.target) {
 		size = 0.005;
@@ -219,7 +270,7 @@ function pixelate(size) {
 		canvas.height = img.height * scale;
 		startTimeouts();
 	}
-	
+
 		/// cache scaled width and height
 		w = canvas.width * size / 100;
 		h = canvas.height * size / 100;
