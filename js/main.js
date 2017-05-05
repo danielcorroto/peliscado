@@ -8,12 +8,14 @@ var imageCount = 0;
 
 var hidden = "";
 
+init();
+
 window.addEventListener("load",function() {
 	document.getElementById("clapperboard").onclick = function() {
 		document.getElementById("containerClapperboard").style.display = "none";
 		document.getElementById("containerGame").style.display = "block";
 
-		init();
+		initPixelate();
 	}
 });
 
@@ -31,13 +33,9 @@ function loadInfo() {
  * initSetea los valores obtenidos de los parámetros GET
  */
 function init() {
-
 	loadInfo();
-	setTimeout(function(){
-		// This hides the address bar:
-		window.scrollTo(0, 1);
-		initPixelate();
-	}, 10);
+	// This hides the address bar:
+	window.scrollTo(0, 1);
 
 	// Setea título
 	document.getElementById("type").innerHTML = type;
