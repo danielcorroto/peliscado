@@ -17,7 +17,7 @@
 				font-size: 22px;
 				letter-spacing: 3px;
 			}
-			
+
 			canvas {
 				image-rendering: optimizeSpeed;
 				image-rendering: -moz-crisp-edges;
@@ -26,6 +26,9 @@
 				image-rendering: crisp-edges;
 				-ms-interpolation-mode: nearest-neighbor;
 			}
+      svg {
+        cursor: pointer;
+      }
 			.jumbotron {
 				padding-top: 5px;
 				padding-bottom: 5px;
@@ -46,7 +49,18 @@
       </div>
     </div>
 
-    <div class="container">
+    <div id="containerClapperboard" class="container">
+      <div class="row">
+        <div class="col-xs-offset-2 col-xs-8 col-xm-offset-2 col-xm-8 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4 text-center">
+          <svg id="clapperboard" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 15.222 15.222" style="enable-background:new 0 0 15.222 15.222;" xml:space="preserve">
+          <path style="fill:#030104;" d="M13.485,7.377c0,0-8.05,0-10.267,0l0.343-0.244c2.549-1.472,8.188-5.01,8.188-5.01 c0.234-0.136,0.314-0.436,0.18-0.67l-0.49-1.208c-0.136-0.234-0.436-0.314-0.671-0.179L1.49,5.703 C1.256,5.839,1.177,6.14,1.311,6.374L2.2,7.337l0.007,7.395c0,0.271,0.22,0.49,0.49,0.49h10.788c0.271,0,0.49-0.219,0.49-0.49 V7.867C13.975,7.597,13.755,7.377,13.485,7.377z M9.928,7.956L8.414,9.427H6.452l1.472-1.471H9.928z M9.289,1.407l1.74-1.117 l-0.254,1.64L8.994,3.073L9.289,1.407z M6.187,3.316l1.771-1.103L7.64,3.873L5.871,4.977L6.187,3.316z M2.657,6.988l0.297-1.666 l1.757-1.123L4.413,5.863L2.657,6.988z M4.492,7.956h1.961L4.982,9.427H3.021L4.492,7.956z M11.878,9.428H9.885l1.472-1.471h1.947 L11.878,9.428z"/>
+          <text x="3.6" y="13" fill="white" font-size="2.2" font-weight="900" font-style="italic">JUGAR</text>
+        </svg>
+        </div>
+      </div>
+    </div>
+
+    <div id="containerGame" class="container" style="display:none">
       <div class="row">
         <div class="col-xs-12 col-xm-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 text-center">
           <pre id="solution"></pre>
@@ -57,7 +71,7 @@
 			<canvas id="image"></canvas>
         </div>
       </div>
-    </div>      
+    </div>
 
         <script src="js/vendor/jquery-3.2.1.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>

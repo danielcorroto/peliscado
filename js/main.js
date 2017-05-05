@@ -7,7 +7,15 @@ var imageTotal = 50;
 var imageCount = 0;
 
 var hidden = "";
-init();
+
+window.addEventListener("load",function() {
+	document.getElementById("clapperboard").onclick = function() {
+		document.getElementById("containerClapperboard").style.display = "none";
+		document.getElementById("containerGame").style.display = "block";
+
+		init();
+	}
+});
 
 /**
  * Carga la información de tiempo, tipo, solución y src de la imagen a partir de los parámetros GET
@@ -25,13 +33,11 @@ function loadInfo() {
 function init() {
 
 	loadInfo();
-	window.addEventListener("load",function() {
-		setTimeout(function(){
-			// This hides the address bar:
-			window.scrollTo(0, 100);
-			initPixelate();
-		}, 10);
-	});
+	setTimeout(function(){
+		// This hides the address bar:
+		window.scrollTo(0, 1);
+		initPixelate();
+	}, 10);
 
 	// Setea título
 	document.getElementById("type").innerHTML = type;
