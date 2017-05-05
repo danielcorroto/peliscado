@@ -15,7 +15,7 @@ canvas {
   image-rendering: crisp-edges;
   -ms-interpolation-mode: nearest-neighbor;
 }
-svg {
+#clapperboard {
   cursor: pointer;
 }
 .jumbotron {

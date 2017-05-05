@@ -11,11 +11,19 @@ var hidden = "";
 init();
 
 window.addEventListener("load",function() {
+	/**
+	 * Cuando se pincha la claqueta: desaparece la claqueta y aparece el countdown
+	 */
 	document.getElementById("clapperboard").onclick = function() {
 		document.getElementById("containerClapperboard").style.display = "none";
-		document.getElementById("containerGame").style.display = "block";
+			document.getElementById("containerCountDown").style.display = "block";
 
-		initPixelate();
+		setTimeout(function() {
+			document.getElementById("containerCountDown").style.display = "none";
+			document.getElementById("containerGame").style.display = "block";
+			initPixelate();
+		}, 3000);
+
 	}
 });
 

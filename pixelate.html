@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/countdown.css">
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 		<script>
@@ -34,6 +35,26 @@
       </div>
     </div>
 
+    <div id="containerCountDown" class="container" style="display:none">
+      <div class="row">
+        <div class="col-xs-offset-2 col-xs-8 col-xm-offset-2 col-xm-8 col-md-offset-3 col-md-6 col-lg-offset-2 col-lg-8 text-center animatedFlicker">
+          <svg id="film-countdown" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+      					 viewBox="0 0 400 200" style="enable-background:new 0 0 400 200;" xml:space="preserve">
+    				<rect class="rectangle01" x="0" y="0" width="400" height="200"/>
+    				<line class="line01" x1="400" y1="100" x2="0" y2="100" />
+    				<line class="line02" x1="200" y1="0" x2="200" y2="200" />
+    				<circle class="circle01" cx="200" cy="100" r="6" />
+    				<circle class="circle01" cx="200" cy="100" r="80" />
+    				<circle class="circle01" cx="200" cy="100" r="95" />
+    				<circle class="circle03 animatedRotate" cx="200" cy="100" r="500" />
+    				<text class="number n5 animatedText1" x="180" y="125">3</text>
+    				<text class="number n4 animatedText2" x="180" y="125">2</text>
+    				<text class="number n3 animatedText3" x="180" y="125">1</text>
+      		</svg>
+        </div>
+      </div>
+    </div>
+    
     <div id="containerGame" class="container" style="display:none">
       <div class="row">
         <div class="col-xs-12 col-xm-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 text-center">
