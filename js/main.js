@@ -11,12 +11,15 @@ var hidden = "";
 init();
 
 window.addEventListener("load",function() {
+	document.getElementById("containerClapperboard").style.display = "block";
+	centerDiv("#containerClapperboard");
 	/**
 	 * Cuando se pincha la claqueta: desaparece la claqueta y aparece el countdown
 	 */
 	document.getElementById("clapperboard").onclick = function() {
 		document.getElementById("containerClapperboard").style.display = "none";
-			document.getElementById("containerCountDown").style.display = "block";
+		document.getElementById("containerCountDown").style.display = "block";
+		centerDiv("#containerCountDown");
 
 		setTimeout(function() {
 			document.getElementById("containerCountDown").style.display = "none";
@@ -230,6 +233,21 @@ function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
+/**
+ * Centra un div verticalmente en el resto de ventana que le queda
+ *
+ * @param  {type} divSelector Selector del div a centrar
+ */
+function centerDiv(divSelector) {
+	window_height = jQuery(window).height();
+	div_top = jQuery(divSelector).position().top;
+	div_height = jQuery(divSelector).height();
+	center_value = (window_height-div_top-div_height)/2;
+
+	jQuery(divSelector).css('margin-top',center_value);
 }
 
 //////////////////////////////
