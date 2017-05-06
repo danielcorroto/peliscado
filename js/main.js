@@ -20,6 +20,7 @@ window.addEventListener("load",function() {
 		document.getElementById("containerClapperboard").style.display = "none";
 		document.getElementById("containerCountDown").style.display = "block";
 		centerDiv("#containerCountDown");
+		changeBackground();
 
 		setTimeout(function() {
 			document.getElementById("containerCountDown").style.display = "none";
@@ -248,6 +249,17 @@ function centerDiv(divSelector) {
 	center_value = (window_height-div_top-div_height)/2;
 
 	jQuery(divSelector).css('margin-top',center_value);
+}
+
+
+/**
+ * Invierte los colores de la ventana
+ */
+function changeBackground() {
+	var body = document.getElementsByTagName("body")[0];
+	body.style.background = "black";
+	body.style.color = "#cdcdcd";
+	document.getElementById("containerGuess").style.background = "#121212";
 }
 
 //////////////////////////////
