@@ -243,12 +243,21 @@ function getParameterByName(name, url) {
  * @param  {type} divSelector Selector del div a centrar
  */
 function centerDiv(divSelector) {
-	window_height = jQuery(window).height();
-	div_top = jQuery(divSelector).position().top;
-	div_height = jQuery(divSelector).height();
-	center_value = (window_height-div_top-div_height)/2;
+	// Valores
+	var divElement = jQuery(divSelector);
+	var window_height = jQuery(window).height();
+	var div_top = divElement.position().top;
+	var div_height = divElement.height();
 
-	jQuery(divSelector).css('margin-top',center_value);
+	// Escalado
+	var div_max_height = Math.min(window_height - div_top - 20, div_height);
+	var scale = div_max_height / div_height;
+	divElement.height(div_height * scale);
+	divElement.width(divElement.width() * scale);
+
+	// Centrado vertical
+	var center_value = (window_height - div_top - div_max_height)/2;
+	divElement.css('margin-top',center_value);
 }
 
 
