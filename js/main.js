@@ -312,11 +312,34 @@ function initPixelate() {
 	img.src = imgsrc;
 }
 
+
+/**
+ * Calcula la escala que hay que aplicarle al canvas de imagen
+ *
+ * @param  {type} imgw Ancho original del destino
+ * @return {type}      Escala a aplicar
+ */
+function calculateCanvasScale(imgw) {
+	var scale = imgw / img.width;
+
+	// TODO
+	var window_height = jQuery(window).height();
+	var div_top = document.getElementById("div_image").offsetTop;
+	var div_max_height = Math.min(window_height - div_top - 20, img.height);
+	var scaleWindow = div_max_height / img.height;
+
+	return Math.min(scale, scaleWindow);
+}
+
+/**
+ * Establece el tamaño del canvas de imagen
+ */
 function setCanvasSize() {
 	var xsol = document.getElementById("solution");
 	var imgw = xsol.clientWidth;
 	if (img.width != 0) {
-		var scale = imgw / img.width;
+		var scale = calculateCanvasScale(imgw);
+
 		canvas.width = img.width * scale;
 		canvas.height = img.height * scale;
 	} else {
