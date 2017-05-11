@@ -31,6 +31,16 @@ window.addEventListener("load",function() {
 	}
 });
 
+window.addEventListener("resize",function() {
+	centerDiv("#containerClapperboard");
+	centerDiv("#containerCountDown");
+});
+
+window.addEventListener("orientationchange",function() {
+	centerDiv("#containerClapperboard");
+	centerDiv("#containerCountDown");
+});
+
 /**
  * Carga la información de tiempo, tipo, solución y src de la imagen a partir de los parámetros GET
  */
@@ -250,7 +260,7 @@ function centerDiv(divSelector) {
 	var div_height = divElement.height();
 
 	// Escalado
-	var div_max_height = Math.min(window_height - div_top - 20, div_height);
+	var div_max_height = Math.min(window_height - div_top - 40, div_height);
 	var scale = div_max_height / div_height;
 	divElement.height(div_height * scale);
 	divElement.width(divElement.width() * scale);
