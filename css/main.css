@@ -1,6 +1,8 @@
 body {
   padding-top: 10px;
   padding-bottom: 20px;
+  transition: all 0.5s ease-in-out;
+  transition: color 0.25s ease-in-out;
 }
 pre {
   font-size: 22px;
@@ -21,4 +23,5 @@ canvas {
 .jumbotron {
   padding-top: 5px;
   padding-bottom: 5px;
+  transition: all 0.5s ease-in-out;
 }
