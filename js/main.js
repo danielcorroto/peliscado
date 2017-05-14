@@ -259,6 +259,11 @@ function centerDiv(divSelector) {
 	var div_top = divElement.position().top;
 	var div_height = divElement.height();
 
+	// Auto scroll
+	jQuery(window).height(window_height + 500);
+	window.scrollTo(0, 1);
+	window_height = jQuery(window).height();
+
 	// Escalado
 	var div_max_height = Math.min(window_height - div_top - 40, div_height);
 	var scale = div_max_height / div_height;
