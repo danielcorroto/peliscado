@@ -11,6 +11,10 @@ var hidden = "";
 init();
 
 window.addEventListener("load",function() {
+	var wrapper = document.getElementById("wrapper");
+	var divElement = jQuery("#wrapper");
+	divElement.height(screen.height - 30);
+
 	document.getElementById("containerClapperboard").style.display = "block";
 	centerDiv("#containerClapperboard");
 	/**
@@ -259,11 +263,6 @@ function centerDiv(divSelector) {
 	var div_top = divElement.position().top;
 	var div_height = divElement.height();
 
-	// Auto scroll
-	jQuery(window).height(window_height + 500);
-	window.scrollTo(0, 1);
-	window_height = jQuery(window).height();
-
 	// Escalado
 	var div_max_height = Math.min(window_height - div_top - 40, div_height);
 	var scale = div_max_height / div_height;
@@ -327,7 +326,6 @@ function initPixelate() {
 function calculateCanvasScale(imgw) {
 	var scale = imgw / img.width;
 
-	// TODO
 	var window_height = jQuery(window).height();
 	var div_top = document.getElementById("div_image").offsetTop;
 	var div_max_height = Math.min(window_height - div_top - 20, img.height);

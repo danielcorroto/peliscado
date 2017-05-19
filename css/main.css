@@ -4,6 +4,9 @@ body {
   transition: all 0.5s ease-in-out;
   transition: color 0.25s ease-in-out;
 }
+.wrapper {
+  position: fixed;
+}
 canvas {
   image-rendering: optimizeSpeed;
   image-rendering: -moz-crisp-edges;
