@@ -377,6 +377,7 @@ function pixelate(size) {
 }
 
 function pixelateError() {
+	setTimeout(2000);
 	setCanvasSize();
 	ctx.font = "30px Serif";
 	ctx.textAlign = "center";
