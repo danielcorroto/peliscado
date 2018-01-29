@@ -17,6 +17,11 @@
 		.row {
 			margin: 10 0;
 		}
+		#qrcode {
+			width:200px;
+			height:200px;
+			margin:15px;
+		}
 	</style>
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/main.css">
@@ -31,15 +36,26 @@
 		$(document).ready(function(){
 
 			$("#build").click(function() {
+				document.getElementById("qrcode").innerHTML = "";
+				var qrcode = new QRCode("qrcode",{
+					width: 600,
+					height: 600,
+					colorDark : "#000000",
+					colorLight : "#ffffff",
+					correctLevel : QRCode.CorrectLevel.M
+				});
 				var time = btoa(getParameterByName("time"));// 30 = MzA=
 				var type = btoa(getParameterByName("type")); // "la película" = bGEgcGVsw61jdWxh
 				var solution = btoa(getParameterByName("solution"));//"EL DÍA DE LA BESTIA" = RUwgRMONQSBERSBMQSBCRVNUSUE=
 				var imgsrc = btoa(getParameterByName("imgsrc"));//"https://static-latercera-qa.s3.amazonaws.com/wp-content/uploads/sites/7/20140721/1978068.jpg" = aHR0cHM6Ly9zdGF0aWMtbGF0ZXJjZXJhLXFhLnMzLmFtYXpvbmF3cy5jb20vd3AtY29udGVudC91cGxvYWRzL3NpdGVzLzcvMjAxNDA3MjEvMTk3ODA2OC5qcGc=
 				var url = "https://danielcorroto.github.io/peliscado/pixelate.html?time="+time+"&type="+type+"&sol="+solution+"&img="+imgsrc;
-
-				var qr = "http://es.qr-code-generator.com/phpqrcode/getCode.php?cht=qr&chl="+encodeURIComponent(url)+"&chs=180x180&choe=UTF-8&chld=L|0";
+				qrcode.clear();
 				$("#url").text(url);
-				$("#qr").attr("src", qr);
+				qrcode.makeCode(url);
+				$("#qrcode > img").css({"margin":"100px"});
+
+				/*var qr = "http://es.qr-code-generator.com/phpqrcode/getCode.php?cht=qr&chl="+encodeURIComponent(url)+"&chs=180x180&choe=UTF-8&chld=L|0";
+				$("#qr").attr("src", qr);*/
 			});
 
 		});
@@ -52,7 +68,7 @@
 	</style>
 	</head>
 <body>
-	<div class="container">
+	<div class="container"> 
 
       <div class="row">
         <div class="col-lg-4 text-right">
@@ -110,14 +126,16 @@
         <div class="col-lg-8 text-center">
           <textarea id="url" rows="10" cols="80"></textarea>
         </div>
-        <div class="col-lg-4 text-center">
+        <!--div class="col-lg-4 text-center">
           <img style="width:268!important" src="" alt="" class="prevImg" id="qr">
-        </div>
+        </div-->
+		<div id="qrcode" style="width:268!important"></div>
       </div>
 
       <div class="row">
       </div>
 
     </div>
+    <script src="js/vendor/qrcode.min.js"></script>
 </body>
 </html>
